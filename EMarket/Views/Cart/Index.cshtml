@@ -1,0 +1,89 @@
+﻿@model IEnumerable<EMarket.Models.Cart>
+
+@{
+    Layout = null;
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedAt)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Price)
+            </td>
+            <td>
+                <img src="@Url.Content(item.Product.Image)" width="125" height="125" />
+            </td>
+            <td>
+                @{var Days = ((Int32)(DateTime.Now.Subtract(item.AddedAt).Days));}
+
+                @if (Days > 0 && Days < 30)
+                {
+                    <P>
+                        @((Int32)(DateTime.Now.Subtract(item.AddedAt).Days))
+                        Days Ago
+                    </P>
+                }
+
+                @{var Hours = ((Int32)(DateTime.Now.Subtract(item.AddedAt).Hours));}
+
+                @if (Hours > 0 && Days <= 0)
+                {
+                    <P>
+                        @((Int32)(DateTime.Now.Subtract(item.AddedAt).Hours))
+                        hours Ago
+                    </P>
+                }
+
+                @{var Minutes = ((Int32)(DateTime.Now.Subtract(item.AddedAt).Minutes));}
+
+                @if (Minutes > 0 && Hours <= 0 && Days <= 0)
+                {
+                    <P>
+                        @((Int32)(DateTime.Now.Subtract(item.AddedAt).Minutes))
+                        Minutes Ago
+                    </P>
+                }
+
+                @if (Hours == 0 && Days <= 0 && Minutes <= 0)
+                {
+                    <p>
+                        Added To Cart Just Now
+                    </p>
+                }
+
+                @{var Month = ((Int32)(DateTime.Now.Subtract(item.AddedAt).TotalDays));}
+
+                @if (Month > 30)
+                {
+                    <P>
+                        @((Int32)(DateTime.Now.Subtract(item.AddedAt).Days / 30))
+                        Month Ago
+                    </P>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "Remove", "Cart", new { id = item.Product.Id }, new { @class = "btn btn-danger text-center" })
+            </td>
+        </tr>
+    }
+</table>

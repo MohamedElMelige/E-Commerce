@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - EMarket</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div style="overflow:hidden">
+                <h1 class="color" style="float:left">EMarket</h1>
+                <h2 style="float:right">
+                    <button class="btn btn-default" data-target="#CartList" data-toggle="modal">
+                        Cart List
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                    </button>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <div class="container">
+            <div class="row">
+                <div class="modal fade" id="CartList" tabindex="-1" style="position:fixed">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2>Cart List</h2>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                @Html.Action("Index", "Cart")
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @RenderBody()
+        <hr />
+        <footer class="footer">
+            <h4>EMarket</h4>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<style>
+    .color {
+        color: white;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding-top: 10px;
+        color: white;
+        text-align: center;
+        background-color: black;
+    }
+</style>
